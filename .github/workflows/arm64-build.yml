@@ -17,12 +17,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout upstream source
+      - name: Checkout own fork
         uses: actions/checkout@v4
         with:
-          repository: rachelos/we-mp-rss   # 跟踪官方仓库
-          ref: master
           fetch-depth: 1
+
+      - name: Fetch upstream source (rachelos/we-mp-rss)
+        run: |
+          git remote add upstream https://github.com/rachelos/we-mp-rss.git
+          git fetch --depth 1 upstream master
+          git checkout -f FETCH_HEAD
+          echo "=== 当前源码 HEAD ==="
+          git log -1 --oneline
 
       - name: Apply arm64 fix (remove hardcoded x86_64 playwright path)
         run: |
