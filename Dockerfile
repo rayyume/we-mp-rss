@@ -1,13 +1,15 @@
 # 请别再加前端编译了，前端编译非常占用工作流时间 ,可以 编译后复制到static目录再提交pull request
 FROM --platform=$BUILDPLATFORM ghcr.io/rachelos/base-full:latest AS runtime
 
+ARG TARGETARCH
+
 ENV PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
 ENV INSTALL=True
 ENV BROWSER_TYPE=webkit
 ENV PLANT_PATH=/app/env
 ENV WEREAD_LIC_PATH=/app/data/wx.lic
 ENV WEREAD_PROFILE_DIR=/app/data/weread-chrome-profile
-ENV PLAYWRIGHT_BROWSERS_PATH=/app/env/driver/_x86_64
+# PLAYWRIGHT_BROWSERS_PATH intentionally NOT set here - install.sh derives it from uname -m
 
 WORKDIR /app
 RUN echo "1.0.$(date +%Y%m%d.%H%M)">>docker_version.txt
