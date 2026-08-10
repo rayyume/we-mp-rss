@@ -25,7 +25,7 @@ jobs:
       - name: Fetch upstream source (rachelos/we-mp-rss)
         run: |
           git remote add upstream https://github.com/rachelos/we-mp-rss.git
-          git fetch --depth 1 upstream master
+          git fetch --depth 1 upstream main
           git checkout -f FETCH_HEAD
           echo "=== 当前源码 HEAD ==="
           git log -1 --oneline
